@@ -1,6 +1,6 @@
 {
   "$schema": "./node_modules/nx/schemas/nx-schema.json",
-  "npmScope": "tdd",
+  "npmScope": "tici-taci",
   "affected": {
     "defaultBase": "master"
   },
@@ -24,21 +24,9 @@
       "dependsOn": ["^build"]
     }
   },
-  "generators": {
-    "@nrwl/react": {
-      "application": {
-        "style": "css",
-        "linter": "eslint",
-        "babel": true
-      },
-      "component": {
-        "style": "css"
-      },
-      "library": {
-        "style": "css",
-        "linter": "eslint"
-      }
-    }
+  "generators": {},
+  "cli": {
+    "defaultCollection": "@nxext/vite"
   },
   "defaultProject": "web"
 }

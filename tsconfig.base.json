@@ -14,7 +14,10 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "@tici-taci/typings": ["libs/typings/src/index.ts"],
+      "@tici-taci/validations": ["libs/validations/src/index.ts"]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }
