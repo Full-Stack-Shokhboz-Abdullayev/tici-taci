@@ -1,13 +1,13 @@
 import React from 'react';
 
-import useModalStore from '../store/modal.store';
+import { useModalStore } from '../store/modal.store';
 import { Nullish } from '../typings/shared/types/nullish.type';
 
 const useModal = (
   component: React.ReactElement,
   handlers?: {
     onClose?: Nullish<() => void>;
-  },
+  }
 ) => {
   const { setIsOpen, setComponent, setEventHandlers } = useModalStore();
   return {
@@ -21,10 +21,10 @@ const useModal = (
     close: () => {
       setIsOpen(false);
       setEventHandlers({
-        onClose: null,
+        onClose: null
       });
       setComponent(null);
-    },
+    }
   };
 };
 

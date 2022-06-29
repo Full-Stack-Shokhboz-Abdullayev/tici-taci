@@ -15,6 +15,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@tici-taci/business-logic": ["libs/business-logic/src/index.ts"],
       "@tici-taci/typings": ["libs/typings/src/index.ts"],
       "@tici-taci/validations": ["libs/validations/src/index.ts"]
     }

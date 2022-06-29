@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { useSocket } from '../../contexts/SocketProvider';
 import useGameStore from '../../store/game.store';
-import useModalStore from '../../store/modal.store';
+import { useModalStore } from '../../store/modal.store';
 import Button from '../core/design/Button';
 import Input from '../core/design/Input';
 

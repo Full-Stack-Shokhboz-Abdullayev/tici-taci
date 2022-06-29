@@ -1,6 +1,6 @@
 import { FC } from 'react';
 
-import useModalStore from '../store/modal.store';
+import { useModalStore } from '../store/modal.store';
 
 const Modal: FC = () => {
   const { component, isOpen, setIsOpen, onClose } = useModalStore();

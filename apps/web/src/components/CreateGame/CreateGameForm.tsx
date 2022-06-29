@@ -1,4 +1,4 @@
-import { CreateGame, FormError } from '@tici-taci/typings';
+import { CreateGame, FormError, SocketEvents } from '@tici-taci/typings';
 import { CreateGameDto } from '@tici-taci/validations';
 import { createValidator } from 'class-validator-formik';
 import { useFormik } from 'formik';
@@ -9,7 +9,7 @@ import O from '../../assets/images/o.svg';
 import X from '../../assets/images/x.svg';
 import { useSocket } from '../../contexts/SocketProvider';
 import useGameStore from '../../store/game.store';
-import useModalStore from '../../store/modal.store';
+import { useModalStore } from '../../store/modal.store';
 import Button from '../core/design/Button';
 import Input from '../core/design/Input';
 import SelectSwitch from '../core/design/SelectSwitch';
@@ -62,7 +62,7 @@ const CreateGameForm: FC = () => {
   });
 
   useEffect(() => {
-    const events: Record<string, any> = {
+    const events: SocketEvents = {
       'create-complete': (data: CreateGame) => {
         create(data);
         setIsOpen(false);

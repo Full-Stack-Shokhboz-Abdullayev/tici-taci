@@ -1,8 +1,8 @@
-import { PlayerDto } from './player.type';
+import { Player } from './player.type';
 
 export type CreateGame = {
   title: string;
   code: string;
   flip: boolean;
-  maker: PlayerDto;
+  maker: Player;
 };

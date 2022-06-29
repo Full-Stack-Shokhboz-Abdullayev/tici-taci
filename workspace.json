@@ -2,6 +2,7 @@
   "$schema": "./node_modules/nx/schemas/workspace-schema.json",
   "version": 2,
   "projects": {
+    "business-logic": "libs/business-logic",
     "server": "apps/server",
     "typings": "libs/typings",
     "validations": "libs/validations",
