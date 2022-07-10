@@ -11,3 +11,8 @@
     height: 8rem;
   }
 }
+
+input,
+textarea {
+  @apply outline-none;
+}

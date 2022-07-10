@@ -1,7 +1,6 @@
+import { Nullish, PlayersState } from '@tici-taci/typings';
 import { FC } from 'react';
 
-import { PlayersState } from '../../typings/Playground/interfaces/index.interfaces';
-import { Nullish } from '../../typings/shared/types/nullish.type';
 import Loading from '../core/design/Loading';
 
 const Fallback: FC<{

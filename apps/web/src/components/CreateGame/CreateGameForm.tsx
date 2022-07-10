@@ -1,15 +1,8 @@
-import { CreateGame, FormError, SocketEvents } from '@tici-taci/typings';
-import { CreateGameDto } from '@tici-taci/validations';
-import { createValidator } from 'class-validator-formik';
-import { useFormik } from 'formik';
-import { FC, useCallback, useEffect } from 'react';
+import { FC } from 'react';
 import { useNavigate } from 'react-router-dom';
-
 import O from '../../assets/images/o.svg';
 import X from '../../assets/images/x.svg';
-import { useSocket } from '../../contexts/SocketProvider';
-import useGameStore from '../../store/game.store';
-import { useModalStore } from '../../store/modal.store';
+import { useCreateGame } from '../../hooks';
 import Button from '../core/design/Button';
 import Input from '../core/design/Input';
 import SelectSwitch from '../core/design/SelectSwitch';
@@ -28,23 +21,8 @@ const signs = [
 ];
 
 const CreateGameForm: FC = () => {
-  const { setIsOpen, isOpen } = useModalStore();
-  const socket = useSocket();
-  const { create } = useGameStore();
   const navigate = useNavigate();
-
-  const submit = useCallback(async (values: CreateGameDto) => {
-    socket.emit('create', {
-      title: values.title,
-      maker: {
-        name: values.name,
-        sign: values.sign
-      }
-    });
-  }, []);
-
   const {
-    resetForm,
     handleSubmit,
     handleBlur,
     handleChange,
@@ -52,43 +30,8 @@ const CreateGameForm: FC = () => {
     errors,
     touched,
     isSubmitting,
-    setFieldValue,
-    setErrors,
-    setSubmitting
-  } = useFormik({
-    initialValues: new CreateGameDto(),
-    onSubmit: submit,
-    validate: createValidator(CreateGameDto)
-  });
-
-  useEffect(() => {
-    const events: SocketEvents = {
-      'create-complete': (data: CreateGame) => {
-        create(data);
-        setIsOpen(false);
-        resetForm();
-        navigate('/game/' + data.code);
-      },
-      exception: ({ messages }: FormError) => {
-        setErrors(messages);
-        setSubmitting(false);
-      }
-    };
-
-    Object.keys(events).forEach((event) => {
-      socket.on(event, events[event]);
-    });
-    return () => {
-      Object.keys(events).forEach((event) => {
-        socket.off(event, events[event]);
-      });
-    };
-  }, []);
-
-  useEffect(() => {
-    isOpen && resetForm();
-  }, [isOpen]);
-
+    setFieldValue
+  } = useCreateGame(navigate);
   return (
     <form onSubmit={handleSubmit}>
       <h3 className="text-2xl text-center my-2">Create The Game!</h3>

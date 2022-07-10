@@ -24,7 +24,7 @@
 .or.vertical::before,
 .or.vertical::after {
   position: absolute;
-  background: var(--light-yellow);
+  background: theme('colors.light-yellow');
   width: 1px;
   height: var(--line-height);
   left: 50%;

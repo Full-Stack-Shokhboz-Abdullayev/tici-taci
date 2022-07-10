@@ -4,6 +4,6 @@ export interface Line {
   indexes: Array<number>;
   line: {
     perspective: Perspective;
-    position?: string;
+    position?: '';
   };
 }

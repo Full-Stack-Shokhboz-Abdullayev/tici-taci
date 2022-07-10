@@ -28,5 +28,8 @@
     {
       "path": "./tsconfig.spec.json"
     }
-  ]
+  ],
+  "rules": {
+    "react-hooks/rules-of-hooks": "off"
+  }
 }

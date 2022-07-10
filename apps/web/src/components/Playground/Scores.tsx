@@ -1,7 +1,7 @@
+import { PlayerType } from '@tici-taci/typings';
 import O from '../../assets/images/o.svg';
 import X from '../../assets/images/x.svg';
 import useGameStore from '../../store/game.store';
-import { PlayerType } from '../../typings/Playground/types/player.type';
 
 const Scores = () => {
   const players = useGameStore((state) => state.players);
@@ -10,7 +10,10 @@ const Scores = () => {
       {Object.keys(players).map((playerType) => {
         const player = players[playerType as PlayerType];
         return (
-          <div className="mx-4 flex items-center justify-center" key={player?.sign}>
+          <div
+            className="mx-4 flex items-center justify-center"
+            key={player?.sign}
+          >
             <span className="font-bold flex items-center justify-center">
               {player?.name}
               <img

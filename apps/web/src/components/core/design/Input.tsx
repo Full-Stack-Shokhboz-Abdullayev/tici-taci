@@ -8,7 +8,7 @@ const Input: FC<
 > = ({ children, className, styleType, innerRef, ...props }) => {
   return (
     <input
-      className={`${className} p-2 outline-none rounded custom-input-${styleType} transition-all`}
+      className={`${className} p-2   rounded custom-input-${styleType} `}
       {...props}
       ref={innerRef}
     >

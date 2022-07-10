@@ -3,6 +3,8 @@
   "version": 2,
   "projects": {
     "business-logic": "libs/business-logic",
+    "mobile": "apps/mobile",
+    "mobile-e2e": "apps/mobile-e2e",
     "server": "apps/server",
     "typings": "libs/typings",
     "validations": "libs/validations",

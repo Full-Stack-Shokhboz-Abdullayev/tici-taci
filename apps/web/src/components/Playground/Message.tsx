@@ -1,8 +1,6 @@
+import { Nullish, PlayersState, PlayerType } from '@tici-taci/typings';
 import { FC, memo, useMemo } from 'react';
 
-import { PlayersState } from '../../typings/Playground/interfaces/index.interfaces';
-import { PlayerType } from '../../typings/Playground/types/player.type';
-import { Nullish } from '../../typings/shared/types/nullish.type';
 import Button from '../core/design/Button';
 
 interface MessageProps {
@@ -29,7 +27,7 @@ const Message: FC<MessageProps> = ({ winner, restart, players, xIsNext }) => {
     const whoseTurn = useMemo(() => {
       const playerType = findKeyBySign(
         players as PlayersState,
-        xIsNext ? 'X' : 'O',
+        xIsNext ? 'X' : 'O'
       ) as PlayerType;
       if (playerType) {
         return players[playerType]?.name;
@@ -44,7 +42,10 @@ const Message: FC<MessageProps> = ({ winner, restart, players, xIsNext }) => {
     );
   } else if (winner) {
     const winnerPlayer = useMemo(() => {
-      const winnerType = findKeyBySign(players as PlayersState, winner) as PlayerType;
+      const winnerType = findKeyBySign(
+        players as PlayersState,
+        winner
+      ) as PlayerType;
       if (winnerType) {
         return players[winnerType]?.name;
       }

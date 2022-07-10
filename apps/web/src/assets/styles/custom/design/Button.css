@@ -4,7 +4,7 @@
 }
 
 .custom-button-black.active {
-  box-shadow: 0 0 0 2px var(--black);
+  box-shadow: 0 0 0 2px #000;
   background: #fff !important;
   color: #000 !important;
 }
@@ -15,8 +15,8 @@
 }
 
 .custom-button-yellow:hover {
-  box-shadow: 0 0 0 1px var(--black);
+  box-shadow: 0 0 0 1px #000;
 }
 .custom-button-yellow:active {
-  box-shadow: 0 0 0 3px var(--black-06);
+  box-shadow: 0 0 0 3px theme('colors.black-06');
 }

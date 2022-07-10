@@ -1,4 +1,3 @@
-@import 'custom/BrandColors.css';
 @import 'custom/Divider.css';
 @import 'custom/Playground.css';
 @import 'custom/ShareButton.css';
@@ -7,4 +6,4 @@
 @import 'custom/design/Button.css';
 @import 'custom/design/Loading.css';
 
-@import 'custom/plugins/tooltip.css'
+@import 'custom/plugins/tooltip.css';

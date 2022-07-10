@@ -1,7 +1,6 @@
+import { Line, Nullish } from '@tici-taci/typings';
 import { FC } from 'react';
 
-import { Line } from '../../typings/Playground/interfaces/calculate-winner.interfaces';
-import { Nullish } from '../../typings/shared/types/nullish.type';
 import Square from './Square';
 
 const SquaresGrid: FC<{

@@ -7,16 +7,16 @@ export const playgroundReducer = (
 ) => {
   switch (action.type) {
     case 'start':
-      return defaultPlaygroundState(action.payload?.xIsNext);
+      return defaultPlaygroundState(action.payload?.['xIsNext']);
     case 'mark': {
       if (
         !state.winner &&
-        !state.cells[action.payload?.idx] &&
+        !state.cells[action.payload?.['idx']] &&
         state.canMove &&
         (action.payload as any).socket
       ) {
         const cells = [...state.cells];
-        cells[action.payload?.idx] = action.payload?.localSign;
+        cells[action.payload?.['idx']] = action.payload?.['localSign'];
 
         (action.payload as any).socket.emit('move', {
           code: (action.payload as any).code,
@@ -28,7 +28,7 @@ export const playgroundReducer = (
         return {
           ...state,
           cells,
-          canMove: action.payload?.canMove
+          canMove: action.payload?.['canMove']
         };
       }
       return state;
@@ -40,8 +40,6 @@ export const playgroundReducer = (
       };
     }
     case 'flip':
-      console.log('fliiip');
-
       return {
         ...state,
         xIsNext: (action.payload as Pick<PlaygroundState, 'xIsNext'>).xIsNext

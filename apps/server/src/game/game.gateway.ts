@@ -31,6 +31,8 @@ export class GameGateway implements OnGatewayDisconnect {
 
   @SubscribeMessage('check')
   async check(@MessageBody() { code }: { code: string }) {
+    console.log('checking...');
+    
     const game = await this.gameService.findOne({ code });
     if (!game) {
       throw new WsException({
@@ -75,7 +77,7 @@ export class GameGateway implements OnGatewayDisconnect {
 
     if (socketsSize >= 2) {
       throw new WsException({
-        message: 'Game is full!'
+        messages: { join: 'Game is full!' }
       });
     }
 

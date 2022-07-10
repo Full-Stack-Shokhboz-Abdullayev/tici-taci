@@ -1,6 +1,6 @@
 import { FC } from 'react';
+import { useModal } from '../hooks';
 
-import useModal from '../hooks/useModal';
 import Button from './core/design/Button';
 import CreateGameForm from './CreateGame/CreateGameForm';
 

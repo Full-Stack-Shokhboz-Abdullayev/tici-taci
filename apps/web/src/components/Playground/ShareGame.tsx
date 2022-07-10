@@ -26,7 +26,7 @@ function copyTextToClipboard(text: string, el: any) {
     },
     function (err) {
       console.error('Async: Could not copy text: ', err);
-    },
+    }
   );
 }
 
@@ -64,7 +64,7 @@ export const ShareGameComponent: FC<{ gameLink: string }> = ({ gameLink }) => {
         </div>
         <div
           className={
-            'text-center py-1 px-3 absolute top-full rounded bg-black text-white z-40 mt-2 transition-all -translate-y-10 pointer-events-none opacity-0 ' +
+            'text-center py-1 px-3 absolute top-full rounded bg-black text-white z-40 mt-2  -translate-y-10 pointer-events-none opacity-0 ' +
             (copied ? 'copied' : '')
           }
         >

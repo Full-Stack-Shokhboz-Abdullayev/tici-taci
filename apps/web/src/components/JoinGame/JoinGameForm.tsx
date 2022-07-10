@@ -1,76 +1,21 @@
-import { FormError } from '@tici-taci/typings';
-import { JoinGameFormDto } from '@tici-taci/validations';
-import { createValidator } from 'class-validator-formik';
-import { useFormik } from 'formik';
-import { FC, useCallback, useEffect } from 'react';
+import { FC } from 'react';
 import { useNavigate } from 'react-router-dom';
-
-import { useSocket } from '../../contexts/SocketProvider';
-import useGameStore from '../../store/game.store';
-import { useModalStore } from '../../store/modal.store';
+import { useJoinGame } from '../../hooks';
 import Button from '../core/design/Button';
 import Input from '../core/design/Input';
 
 const JoinGameForm: FC = () => {
-  const { setIsOpen, isOpen } = useModalStore();
-  const socket = useSocket();
-  const { check, code, title } = useGameStore();
   const navigate = useNavigate();
-
-  const submit = useCallback(async (values: JoinGameFormDto) => {
-    socket.emit('join', {
-      code,
-      joiner: {
-        name: values.name
-      }
-    });
-  }, []);
-
   const {
-    resetForm,
     handleSubmit,
     handleBlur,
     handleChange,
-    setErrors,
-    setSubmitting,
     values,
     errors,
     touched,
-    isSubmitting
-  } = useFormik({
-    initialValues: new JoinGameFormDto(),
-    onSubmit: submit,
-    validate: createValidator(JoinGameFormDto)
-  });
-
-  useEffect(() => {
-    const events: Record<string, any> = {
-      'join-complete': (data: any) => {
-        resetForm();
-        check(data);
-        setIsOpen(false);
-        navigate('/game/' + data.code);
-      },
-      exception: ({ messages }: FormError) => {
-        setErrors(messages);
-        setSubmitting(false);
-      }
-    };
-
-    Object.keys(events).forEach((event) => {
-      socket.on(event, events[event]);
-    });
-    return () => {
-      Object.keys(events).forEach((event) => {
-        socket.off(event, events[event]);
-      });
-    };
-  }, []);
-
-  useEffect(() => {
-    isOpen && resetForm();
-  }, [isOpen]);
-
+    isSubmitting,
+    title
+  } = useJoinGame(navigate);
   return (
     <form onSubmit={handleSubmit}>
       <h3 className="text-2xl text-center my-2">Join The Game - {title}!</h3>
