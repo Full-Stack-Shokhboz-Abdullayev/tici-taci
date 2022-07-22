@@ -1,5 +1,5 @@
 import { FormError, SocketEvents } from '@tici-taci/typings';
-import { JoinGameFormDto } from '@tici-taci/validations';
+import { JoinerDto } from '@tici-taci/validations';
 import createValidator from 'class-validator-formik';
 import { useFormik } from 'formik';
 import { useCallback, useEffect } from 'react';
@@ -18,20 +18,18 @@ export const createJoinGameHook =
     const socket = useSocket();
     const { check, code, title } = useGameStore();
 
-    const submit = useCallback(async (values: JoinGameFormDto) => {
+    const submit = useCallback(async ({ ...joiner }: JoinerDto) => {
       socket.emit('join', {
-        code,
-        joiner: {
-          name: values.name
-        }
+        joiner,
+        code
       });
     }, []);
 
     const { resetForm, setErrors, setSubmitting, ...formikHelpers } = useFormik(
       {
-        initialValues: new JoinGameFormDto(),
+        initialValues: new JoinerDto(),
         onSubmit: submit,
-        validate: createValidator(JoinGameFormDto)
+        validate: createValidator(JoinerDto)
       }
     );
 
@@ -43,8 +41,8 @@ export const createJoinGameHook =
           setIsOpen(false);
           navigate('/game/' + data.code);
         },
-        exception: ({ messages }: FormError) => {
-          setErrors(messages);
+        exception: ({ errors }: FormError) => {
+          setErrors(errors);
           setSubmitting(false);
         }
       };

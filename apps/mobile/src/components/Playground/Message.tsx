@@ -37,7 +37,11 @@ const Message: FC<MessageProps> = ({ winner, restart, players, xIsNext }) => {
       return '';
     }, [players, xIsNext]);
 
-    return <Text style={tw`text-center mt-2`}>Now turn to {whoseTurn}</Text>;
+    return (
+      <Text style={tw`text-center mt-2`}>
+        Now turn to <Text style={tw`font-bold`}>{whoseTurn}</Text>
+      </Text>
+    );
   } else if (winner) {
     const winnerPlayer = useMemo(() => {
       const winnerType = findKeyBySign(

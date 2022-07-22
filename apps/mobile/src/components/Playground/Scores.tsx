@@ -1,4 +1,5 @@
 import { PlayerType } from '@tici-taci/typings';
+import { memo } from 'react';
 import { Text, View } from 'react-native';
 import O from '../../assets/images/o.svg';
 import X from '../../assets/images/x.svg';
@@ -18,12 +19,13 @@ const Scores = () => {
           >
             <Text style={tw`font-bold flex items-center justify-center`}>
               {player?.name}
+              &nbsp;
               {player?.sign === 'X' ? (
                 <X width={10} height={10} fill="#000" />
               ) : (
                 <O width={10} height={10} fill="#000" />
               )}
-              : {player?.score}
+              &nbsp;: {player?.score}
             </Text>
           </View>
         );
@@ -34,4 +36,4 @@ const Scores = () => {
   );
 };
 
-export default Scores;
+export default memo(Scores);

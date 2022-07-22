@@ -7,10 +7,10 @@ import {
   createModalHook,
   createPlaygroundHook
 } from '@tici-taci/business-logic';
+import { useLocation } from 'react-router-dom';
+import { useSocket } from '../contexts/SocketProvider';
 import useGameStore from '../store/game.store';
 import { useModalStore } from '../store/modal.store';
-import { useSocket } from '../contexts/SocketProvider';
-import { useLocation } from 'react-router-native';
 
 export const useCheckGame = createCheckGameHook(useSocket, useGameStore);
 export const useCreateGame = createCreateGameHook(

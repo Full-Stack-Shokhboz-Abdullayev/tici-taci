@@ -10,10 +10,13 @@ import {
   WsResponse
 } from '@nestjs/websockets';
 import { SignEnum } from '@tici-taci/typings';
+import {
+  CheckGameDto,
+  CreateGameDto,
+  JoinGameDto
+} from '@tici-taci/validations';
 import { Server, Socket } from 'socket.io';
 import { UseValidation } from '../shared/decorators/use-validation.decorator';
-import { CreateGameDto } from './dto/create-game.dto';
-import { JoinGameDto } from './dto/join-game.dto';
 import calculateWinner from './game.logic';
 import { GameService } from './game.service';
 import { RoomService } from './room.service';
@@ -30,17 +33,27 @@ export class GameGateway implements OnGatewayDisconnect {
   server: Server;
 
   @SubscribeMessage('check')
-  async check(@MessageBody() { code }: { code: string }) {
-    console.log('checking...');
-    
+  async check(
+    @MessageBody() { code }: CheckGameDto,
+    @ConnectedSocket() client: Socket
+  ) {
+    const socketsSize = (await client.in(code).allSockets()).size;
+
+    if (socketsSize >= 2) {
+      throw new WsException({
+        errors: { code: 'Game is full!' }
+      });
+    }
+
     const game = await this.gameService.findOne({ code });
     if (!game) {
       throw new WsException({
-        messages: {
+        errors: {
           code: 'Game not found!'
         }
       });
     }
+
     return {
       event: 'check-complete',
       data: game
@@ -71,15 +84,7 @@ export class GameGateway implements OnGatewayDisconnect {
     @MessageBody() { code, ...body }: JoinGameDto,
     @ConnectedSocket() client: Socket
   ) {
-    const { data } = await this.check({ code });
-
-    const socketsSize = (await client.in(code).allSockets()).size;
-
-    if (socketsSize >= 2) {
-      throw new WsException({
-        messages: { join: 'Game is full!' }
-      });
-    }
+    const { data } = await this.check({ code }, client);
 
     const game = await this.gameService.update({
       code,
@@ -160,7 +165,10 @@ export class GameGateway implements OnGatewayDisconnect {
   }
 
   @SubscribeMessage('restart')
-  async restart(@MessageBody() { code }, @ConnectedSocket() client: Socket) {
+  async restart(
+    @MessageBody() { code }: CheckGameDto,
+    @ConnectedSocket() client: Socket
+  ) {
     const { flip } = await this.gameService.toggleFlip(code);
     client.broadcast.to(code).emit('restart-made', {
       xIsNext: flip

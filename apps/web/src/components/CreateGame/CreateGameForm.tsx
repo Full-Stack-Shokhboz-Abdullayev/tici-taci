@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import O from '../../assets/images/o.svg';
 import X from '../../assets/images/x.svg';
@@ -30,8 +30,15 @@ const CreateGameForm: FC = () => {
     errors,
     touched,
     isSubmitting,
-    setFieldValue
+    setFieldValue,
+    isOpen,
+    resetForm
   } = useCreateGame(navigate);
+
+  useEffect(() => {
+    isOpen && resetForm();
+  }, [isOpen]);
+
   return (
     <form onSubmit={handleSubmit}>
       <h3 className="text-2xl text-center my-2">Create The Game!</h3>
@@ -41,14 +48,14 @@ const CreateGameForm: FC = () => {
           <Input
             onBlur={handleBlur}
             onChange={handleChange}
-            value={values.name}
-            id="name"
+            value={values.maker.name}
+            id="maker.name"
             styleType="black"
             className="w-full"
             placeholder="John Doe"
           />
           <span className="text-red-600 inline-block mt-2">
-            {errors.name && touched.name && errors.name}
+            {errors.maker?.name && touched.maker?.name && errors.maker.name}
           </span>
         </div>
       </div>
@@ -72,15 +79,18 @@ const CreateGameForm: FC = () => {
       <div className="my-4">
         <h4 className="my-2 font-bold text-lg">X or O?</h4>
         <SelectSwitch
-          value={values.sign}
+          value={values.maker.sign}
           options={signs}
-          onChange={(value) => setFieldValue('sign', value)}
+          onChange={(value) => setFieldValue('maker.sign', value)}
         ></SelectSwitch>
       </div>
       <div className="flex justify-center mt-8 mx-2">
         <Button
           disabled={
-            !values.name || !values.title || !values.sign || isSubmitting
+            !values.maker.name ||
+            !values.title ||
+            !values.maker.sign ||
+            isSubmitting
           }
           type="submit"
           styleType="yellow"

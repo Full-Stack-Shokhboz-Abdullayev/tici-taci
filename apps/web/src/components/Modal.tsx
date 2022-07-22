@@ -14,7 +14,7 @@ const Modal: FC = () => {
     <div
       onClick={close}
       role="presentation"
-      className={`modal-background fixed flex justify-center items-center bg-slate-50 bg-opacity-60 backdrop-blur-sm w-full h-full z-50  ${
+      className={`modal-background transition-all fixed flex justify-center items-center bg-slate-50 bg-opacity-60 backdrop-blur-sm w-full h-full z-50  ${
         isOpen ? '' : 'opacity-0 pointer-events-none'
       }`}
     >

@@ -50,16 +50,16 @@ const CreateGameForm: FC = () => {
           <Text style={tw`my-2 font-bold text-base`}>Your name please:</Text>
           <View style={tw`mx-2`}>
             <Input
-              onBlur={handleBlur('name')}
-              onChangeText={handleChange('name')}
-              value={values.name}
-              testID="name"
+              onBlur={handleBlur('maker.name')}
+              onChangeText={handleChange('maker.name')}
+              value={values.maker.name}
+              testID="maker.name"
               styleType="black"
               className="w-full"
               placeholder="John Doe"
             />
-            {errors.name && touched.name && (
-              <Text style={tw`text-red-600 mt-2`}>{errors.name}</Text>
+            {errors.maker?.name && touched.maker?.name && (
+              <Text style={tw`text-red-600 mt-2`}>{errors.maker?.name}</Text>
             )}
           </View>
         </View>
@@ -85,18 +85,20 @@ const CreateGameForm: FC = () => {
         <View style={tw`my-3`}>
           <Text style={tw`my-2 font-bold text-lg`}>X or O?</Text>
           <SelectSwitch
-            value={values.sign}
+            value={values.maker.sign}
             options={signs}
-            onChange={(value) => setFieldValue('sign', value)}
+            onChange={(value) => setFieldValue('maker.sign', value)}
           ></SelectSwitch>
         </View>
         <View style={tw`flex justify-center mt-8 mx-2`}>
           <Button
-            // disabled={
-            //   !values.name || !values.title || !values.sign || isSubmitting
-            // }
+            disabled={
+              !values.maker.name ||
+              !values.title ||
+              !values.maker.sign ||
+              isSubmitting
+            }
             onPress={() => {
-              console.log('heey');
               handleSubmit();
             }}
             styleType="yellow"

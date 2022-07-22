@@ -20,11 +20,7 @@ export const createCreateGameHook =
 
     const submit = useCallback(async (values: CreateGameDto) => {
       socket.emit('create', {
-        title: values.title,
-        maker: {
-          name: values.name,
-          sign: values.sign
-        }
+        ...values
       });
     }, []);
 
@@ -44,8 +40,8 @@ export const createCreateGameHook =
           resetForm();
           navigate('/game/' + data.code);
         },
-        exception: ({ messages }: FormError) => {
-          setErrors(messages);
+        exception: ({ errors }: FormError) => {
+          setErrors(errors);
           setSubmitting(false);
         }
       };
@@ -60,10 +56,8 @@ export const createCreateGameHook =
       };
     }, []);
 
-    useEffect(() => {
-      isOpen && resetForm();
-    }, [isOpen]);
     return {
+      isOpen,
       resetForm,
       setErrors,
       setSubmitting,

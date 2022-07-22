@@ -15,13 +15,18 @@ interface SelectSwitchProps {
   value: string | number;
 }
 
-const SelectSwitch: FC<SelectSwitchProps> = ({ options, onChange, className, value }) => {
+const SelectSwitch: FC<SelectSwitchProps> = ({
+  options,
+  onChange,
+  className,
+  value
+}) => {
   return (
     <div className={`${className} select-switch flex justify-between`}>
       {options.map((option, index) => (
         <Button
           type="button"
-          className={`w-full font-bold mx-2 flex justify-center ${
+          className={`w-full transition-all font-bold mx-2 flex justify-center ${
             option.value === value ? 'active' : ''
           }`}
           onClick={() => onChange(option.value)}
@@ -35,7 +40,7 @@ const SelectSwitch: FC<SelectSwitchProps> = ({ options, onChange, className, val
                 option.value !== value
                   ? {
                       WebkitFilter: 'invert(1)',
-                      filter: 'invert(1)',
+                      filter: 'invert(1)'
                     }
                   : {}
               }

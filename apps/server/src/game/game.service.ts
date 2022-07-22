@@ -1,11 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { InjectModel } from '@nestjs/mongoose';
+import { CreateGameDto, JoinGameDto } from '@tici-taci/validations';
 import { Model } from 'mongoose';
 import { v4 } from 'uuid';
 import { EnvironmentVariables } from '../shared/config/dto/env-variables.dto';
-import { CreateGameDto } from './dto/create-game.dto';
-import { JoinGameDto } from './dto/join-game.dto';
 import { Game, GameDocument } from './entities/game.entity';
 
 type MDate = Date & { addHours: (h: number) => Date };
@@ -19,7 +18,7 @@ type MDate = Date & { addHours: (h: number) => Date };
 export class GameService {
   constructor(
     @InjectModel('Game') private GameModel: Model<Game>,
-    private configService: ConfigService<EnvironmentVariables>,
+    private configService: ConfigService<EnvironmentVariables>
   ) {}
 
   toggleFlip(code: string) {
@@ -29,12 +28,12 @@ export class GameService {
         {
           $set: {
             flip: {
-              $not: '$flip',
-            },
-          },
-        },
+              $not: '$flip'
+            }
+          }
+        }
       ],
-      { new: true },
+      { new: true }
     );
   }
 
@@ -43,8 +42,8 @@ export class GameService {
       ...body,
       code: v4(),
       expireAt: (new Date() as MDate).addHours(
-        this.configService.get('GAME_DURATION'),
-      ),
+        this.configService.get('GAME_DURATION')
+      )
     });
 
     return game.save();
@@ -57,13 +56,13 @@ export class GameService {
   update({ code, ...body }: any) {
     return this.GameModel.findOneAndUpdate({ code: code }, body, {
       runValidators: true,
-      new: true,
+      new: true
     });
   }
 
   async updateScore({
     code,
-    winnerType,
+    winnerType
   }: {
     code: string;
     winnerType: string;
@@ -72,13 +71,13 @@ export class GameService {
       { code },
       {
         $inc: {
-          [`${winnerType}.score`]: 1,
-        },
+          [`${winnerType}.score`]: 1
+        }
       },
       {
         runValidators: true,
-        new: true,
-      },
+        new: true
+      }
     );
   }
 

@@ -7,7 +7,6 @@ import { tw } from '../plugins/tailwind';
 
 import JoinGameForm from './JoinGame/JoinGameForm';
 import Fallback from './Playground/Fallback';
-import Line from './Playground/Line';
 import Message from './Playground/Message';
 import SquaresGrid from './Playground/SquaresGrid';
 
@@ -27,15 +26,22 @@ const Playground: FC<PlaygroundProps> = ({ className }) => {
 
   return (
     <View style={tw`${className || ''} flex justify-center items-center w-4/5`}>
-      <View pointerEvents={canMove ? 'auto' : 'none'}>
-        <Line></Line>
+      <View
+        pointerEvents={
+          !players.remote ||
+          ((players.local?.sign === 'O' ? xIsNext : !xIsNext) && !winner) ||
+          !canMove
+            ? 'none'
+            : 'auto'
+        }
+      >
+        <SquaresGrid onClick={mark} squares={cells} />
         <Fallback
           canMove={canMove}
           players={players}
           xIsNext={xIsNext}
           winner={winner}
         />
-        <SquaresGrid onClick={mark} squares={cells} />
       </View>
 
       <Message

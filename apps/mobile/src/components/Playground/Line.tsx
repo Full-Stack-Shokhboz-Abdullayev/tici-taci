@@ -1,4 +1,4 @@
-import { Line, Perspective } from '@tici-taci/typings';
+import { Line as LineType, Perspective } from '@tici-taci/typings';
 import { FC, memo } from 'react';
 import { View } from 'react-native';
 import Svg, { Line as SvgLine } from 'react-native-svg';
@@ -16,7 +16,7 @@ const perscpectives = {
   [Perspective.VERTICAL]: {}
 };
 
-const Line: FC<{ line: Line['line'] }> = () => {
+const Line: FC<{ line: LineType['line'] }> = () => {
   return (
     <View style={tw`w-full absolute h-full left-0 top-0 z-50`}>
       <Svg style={tw`w-full h-full`}>

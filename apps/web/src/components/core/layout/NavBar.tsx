@@ -11,7 +11,7 @@ const NavBar: FC = () => {
       </Link>
       <a
         href="https://shox-pro.netlify.app"
-        className="hover:text-lg  sm:visible invisible"
+        className="hover:text-lg transition-all sm:visible invisible"
       >
         Who made this?
       </a>

@@ -1,4 +1,9 @@
-import { JoinGame, PlaygroundState, SocketEvents } from '@tici-taci/typings';
+import {
+  FormError,
+  JoinGame,
+  PlaygroundState,
+  SocketEvents
+} from '@tici-taci/typings';
 import { useCallback, useEffect, useReducer } from 'react';
 import { defaultPlaygroundState } from '../constants/Playground';
 import { createSocket } from '../contexts/socket.provider';
@@ -57,8 +62,8 @@ export const createPlaygroundHook =
           openModal();
           return;
         },
-        exception: ({ messages }: { messages: Record<string, string> }) => {
-          alert(Object.values(messages).join('\n '));
+        exception: ({ errors }: FormError) => {
+          alert(Object.values(errors).join('\n '));
           navigate('/');
           closeModal();
         },

@@ -14,9 +14,9 @@ const Fallback: FC<{
     !canMove ? (
     <View
       style={[
-        tw`flex justify-center items-center absolute w-full h-full z-30 left-0 bg-opacity-90 bg-white`,
+        tw`flex justify-center items-center absolute w-full h-full z-50 left-0 bg-opacity-90 bg-white`,
         {
-          elevation: 1
+          elevation: 2
         }
       ]}
     >

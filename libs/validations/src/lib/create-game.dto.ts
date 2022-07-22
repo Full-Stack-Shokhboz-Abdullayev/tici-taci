@@ -1,15 +1,27 @@
-import { SignEnum } from '@tici-taci/typings';
-import { IsEnum, IsNotEmpty, IsString } from 'class-validator';
+import { Type } from 'class-transformer';
+import {
+  IsDefined,
+  IsNotEmpty,
+  IsNotEmptyObject,
+  IsObject,
+  IsString,
+  ValidateNested
+} from 'class-validator';
+import { PlayerDto } from './player.dto';
 
-import { JoinGameFormDto } from './join-game.dto';
-
-export class CreateGameDto extends JoinGameFormDto {
+export class CreateGameDto {
   @IsString()
   @IsNotEmpty({
     message: 'Game title is required'
   })
   title = '';
 
-  @IsEnum(SignEnum)
-  sign: SignEnum = SignEnum.X;
+  @IsDefined()
+  @IsNotEmptyObject()
+  @IsObject()
+  @ValidateNested({
+    each: true
+  })
+  @Type(() => PlayerDto)
+  maker: PlayerDto = new PlayerDto();
 }

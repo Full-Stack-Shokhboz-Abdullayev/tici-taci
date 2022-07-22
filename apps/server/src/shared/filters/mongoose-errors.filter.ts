@@ -14,7 +14,7 @@ export class MongoExceptionFilter extends BaseWsExceptionFilter {
             ...acc,
             [current]: `${startCase(camelCase(current))}: "${
               keyValue[current]
-            }" already exists.`,
+            }" already exists.`
           };
         }, {});
       default:
@@ -23,9 +23,9 @@ export class MongoExceptionFilter extends BaseWsExceptionFilter {
   }
   catch(exception: any, argumentHost: ArgumentsHost) {
     const ctx = argumentHost.switchToWs();
-    const messages = this.getMessage(exception.code, exception.keyValue);
+    const errors = this.getMessage(exception.code, exception.keyValue);
     ctx.getClient().emit('exception', {
-      messages,
+      errors
     });
   }
 }

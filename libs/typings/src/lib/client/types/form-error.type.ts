@@ -1,5 +1,6 @@
 export type FormError = {
-  messages: {
+  message?: string;
+  errors: {
     [key: string]: string;
   };
 };

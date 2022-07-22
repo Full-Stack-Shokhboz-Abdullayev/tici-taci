@@ -64,7 +64,7 @@ export const ShareGameComponent: FC<{ gameLink: string }> = ({ gameLink }) => {
         </div>
         <div
           className={
-            'text-center py-1 px-3 absolute top-full rounded bg-black text-white z-40 mt-2  -translate-y-10 pointer-events-none opacity-0 ' +
+            'text-center transition-all py-1 px-3 absolute top-full rounded bg-black text-white z-40 mt-2 -translate-y-10 pointer-events-none opacity-0 ' +
             (copied ? 'copied' : '')
           }
         >

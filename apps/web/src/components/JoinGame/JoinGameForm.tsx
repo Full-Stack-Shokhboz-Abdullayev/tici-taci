@@ -17,7 +17,14 @@ const JoinGameForm: FC = () => {
     title
   } = useJoinGame(navigate);
   return (
-    <form onSubmit={handleSubmit}>
+    <form
+      onSubmit={(e) => {
+        handleSubmit(e);
+        console.log(errors);
+
+        console.log('submit');
+      }}
+    >
       <h3 className="text-2xl text-center my-2">Join The Game - {title}!</h3>
       <div className="my-4">
         <h4 className="my-2 font-bold text-lg">Your name please:</h4>
@@ -32,7 +39,7 @@ const JoinGameForm: FC = () => {
             placeholder="John Doe"
           />
           <span className="text-red-600 inline-block mt-2">
-            {errors.name && touched.name && errors.name}
+            {errors.name && touched.name}
           </span>
         </div>
       </div>

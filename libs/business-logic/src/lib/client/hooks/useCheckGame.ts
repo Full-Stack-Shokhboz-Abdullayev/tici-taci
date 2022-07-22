@@ -16,10 +16,8 @@ export const createCheckGameHook =
     const { check } = useGameStore();
 
     const submit = useCallback((values: CheckGameDto) => {
-      console.log('Submitting');
-
       socket.emit('check', {
-        code: values.code
+        ...values
       });
     }, []);
 
@@ -39,8 +37,8 @@ export const createCheckGameHook =
           openModal();
           setSubmitting(false);
         },
-        exception: ({ messages }: FormError) => {
-          setErrors(messages);
+        exception: ({ errors }: FormError) => {
+          setErrors(errors);
           setSubmitting(false);
         }
       };

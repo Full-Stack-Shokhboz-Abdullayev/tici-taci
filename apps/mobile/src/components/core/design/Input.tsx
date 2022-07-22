@@ -1,5 +1,5 @@
 import { FC, useMemo } from 'react';
-import { TextInputProps } from 'react-native';
+import { TextInputProps, View } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
 import { tw } from '../../../plugins/tailwind';
 
@@ -8,19 +8,24 @@ const Input: FC<
     styleType: 'black' | 'yellow';
     innerRef?: any;
     className?: string;
+    disabled?: boolean;
   }
-> = ({ className, styleType, innerRef, ...props }) => {
+> = ({ className, styleType, innerRef, disabled, ...props }) => {
   const inputType = useMemo(
     () => (styleType === 'yellow' ? 'border-light-yellow' : 'border-black'),
     [styleType]
   );
   return (
-    <TextInput
-      autoComplete={'off'}
-      style={tw`${className || ''} p-2 rounded bg-white border-2 ${inputType}`}
-      {...props}
-      ref={innerRef}
-    ></TextInput>
+    <View pointerEvents={disabled ? 'none' : 'auto'}>
+      <TextInput
+        autoComplete={'off'}
+        style={tw`${
+          className || ''
+        } p-2 rounded bg-white border-2 ${inputType}`}
+        {...props}
+        ref={innerRef}
+      ></TextInput>
+    </View>
   );
 };
 

@@ -1,43 +1,19 @@
 import { FC, memo, useRef, useState } from 'react';
 import { Text, View } from 'react-native';
 import { tw } from '../../plugins/tailwind';
+import * as Clipboard from 'expo-clipboard';
 
 import Button from '../core/design/Button';
 import Input from '../core/design/Input';
-
-function fallbackCopyTextToClipboard(text: string, el: any) {
-  el.focus();
-  el.select();
-
-  try {
-    const successful = document.execCommand('copy');
-    const msg = successful ? 'successful' : 'unsuccessful';
-    console.log('Fallback: Copying text command was ' + msg);
-  } catch (err) {
-    console.error('Fallback: Oops, unable to copy', err);
-  }
-}
-function copyTextToClipboard(text: string, el: any) {
-  if (!navigator.clipboard) {
-    fallbackCopyTextToClipboard(text, el);
-    return;
-  }
-  navigator.clipboard.writeText(text).then(
-    function () {
-      console.log('Async: Copying to clipboard was successful!');
-    },
-    function (err) {
-      console.error('Async: Could not copy text: ', err);
-    }
-  );
-}
+import Animated, { FadeInUp, FadeOutUp } from 'react-native-reanimated';
+import { Shadow } from 'react-native-shadow-2';
 
 export const ShareGameComponent: FC<{ gameLink: string }> = ({ gameLink }) => {
   const inp = useRef(null);
   const [copied, setCopied] = useState(false);
 
   const copy: () => void = async () => {
-    copyTextToClipboard(gameLink, inp);
+    await Clipboard.setStringAsync(gameLink);
     setCopied(true);
     setTimeout(() => {
       setCopied(false);
@@ -45,35 +21,44 @@ export const ShareGameComponent: FC<{ gameLink: string }> = ({ gameLink }) => {
   };
 
   return (
-    <View style={tw`flex justify-center items-center my-3 w-full`}>
+    <View
+      style={tw`flex justify-center items-center my-3 w-full z-50 elevation-1`}
+    >
+      <View style={tw`-z-50 w-full flex justify-center items-center top-full`}>
+        {copied && (
+          <Animated.View
+            entering={FadeInUp}
+            exiting={FadeOutUp}
+            style={{
+              ...tw`text-center elevation-1 py-1 px-3 absolute top-full rounded bg-black z-20 mt-2`
+            }}
+          >
+            <Text style={tw`text-white`}>Copied!</Text>
+          </Animated.View>
+        )}
+      </View>
       <View
-        style={tw`relative w-4/5 sm:w-[450px] flex items-center justify-center`}
+        style={tw`relative w-4/5 sm:w-[450px] flex items-center justify-center z-50 elevation-2`}
       >
         <Input
-          // editable={false}
+          disabled={true}
           innerRef={inp}
           value={gameLink}
           styleType="yellow"
-          className="w-full z-50"
+          className="z-50"
           onPressIn={copy}
         />
-        <View
-          style={tw`absolute z-[60] right-2 pl-14 pointer-events-none bg-gradient-to-l from-white to-[rgba(255,255,255,0)]`}
-        >
-          <Button
-            onPress={copy}
-            styleType="black"
-            className="py-1 px-3 pointer-events-auto"
+        <View style={[tw`absolute z-50 right-3 pl-8`]}>
+          <Shadow
+            distance={10}
+            startColor={'rgba(255,255,255, 0.8)'}
+            finalColor={'rgba(255,255,255, 0.6)'}
+            offset={[-20, 0]}
           >
-            Share
-          </Button>
-        </View>
-        <View
-          style={tw`text-center py-1 px-3 absolute top-full rounded bg-black text-white z-40 mt-2  -translate-y-10 pointer-events-none opacity-0 ${
-            copied ? 'copied' : ''
-          }`}
-        >
-          <Text>Copied!</Text>
+            <Button onPress={copy} styleType="black" className="py-1 px-3 z-50">
+              Share
+            </Button>
+          </Shadow>
         </View>
       </View>
     </View>

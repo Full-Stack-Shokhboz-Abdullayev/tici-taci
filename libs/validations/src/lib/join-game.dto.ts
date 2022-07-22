@@ -1,9 +1,23 @@
-import { IsNotEmpty, IsString } from 'class-validator';
+import { Type } from 'class-transformer';
+import {
+  IsDefined,
+  IsNotEmptyObject,
+  IsObject,
+  IsUUID,
+  ValidateNested
+} from 'class-validator';
+import { JoinerDto } from './player.dto';
 
-export class JoinGameFormDto {
-  @IsString()
-  @IsNotEmpty({
-    message: 'Player name is required'
+export class JoinGameDto {
+  @IsUUID(4)
+  code = '';
+
+  @IsDefined()
+  @IsNotEmptyObject()
+  @IsObject()
+  @ValidateNested({
+    each: true
   })
-  name = '';
+  @Type(() => JoinerDto)
+  joiner: JoinerDto = new JoinerDto();
 }
