@@ -28,21 +28,21 @@ const JoinGameForm: FC = () => {
           <Input
             onBlur={handleBlur('joiner.name')}
             onChangeText={handleChange('joiner.name')}
-            value={values.joiner.name}
+            value={values.name}
             testID="joiner.name"
             styleType="black"
             className="w-full"
             placeholder="John Doe"
           />
 
-          {errors.joiner?.name && touched.joiner?.name && (
-            <Text style={tw`text-red-600 mt-2`}>{errors.joiner?.name}</Text>
+          {errors.name && touched.name && (
+            <Text style={tw`text-red-600 mt-2`}>{errors.name}</Text>
           )}
         </View>
       </View>
       <View style={tw`flex justify-center mx-2`}>
         <Button
-          disabled={!values.joiner.name || isSubmitting}
+          disabled={!values.name || isSubmitting}
           styleType="yellow"
           onPress={() => handleSubmit()}
           className="w-full border-black border-2"
