@@ -39,7 +39,6 @@ export const createPlaygroundHook =
     const socket = useSocket();
 
     useEffect(() => {
-      console.log('effect');
       const socketEventHandlers: SocketEvents = {
         'opponent-left': (game: JoinGame) => {
           opponentLeft(game);
@@ -100,11 +99,9 @@ export const createPlaygroundHook =
       });
 
       if (!storedCode) {
-        console.log('Check');
 
         socket.emit('check', { code });
       } else {
-        console.log('Get');
 
         socket.emit('get', { code });
       }

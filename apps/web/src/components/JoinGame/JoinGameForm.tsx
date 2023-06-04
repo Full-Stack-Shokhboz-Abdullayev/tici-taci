@@ -21,8 +21,6 @@ const JoinGameForm: FC = () => {
       onSubmit={(e) => {
         handleSubmit(e);
         console.log(errors);
-
-        console.log('submit');
       }}
     >
       <h3 className="text-2xl text-center my-2">Join The Game - {title}!</h3>

@@ -31,7 +31,6 @@ const Message: FC<MessageProps> = ({ winner, restart, players, xIsNext }) => {
         xIsNext ? 'X' : 'O'
       ) as PlayerType;
 
-      console.log(players.local, '-->', xIsNext ? 'X' : 'O');
 
       if (playerType) {
         return players[playerType]?.name;

@@ -5,7 +5,6 @@ export const createSocket = (_URI: string) => {
   const socket = io(_URI);
 
   const SocketContext = createContext<Socket>(socket);
-  console.log('connected', count++);
 
   const useSocket = () => {
     return useContext(SocketContext);
