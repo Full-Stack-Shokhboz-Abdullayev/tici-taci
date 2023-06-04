@@ -32,6 +32,23 @@ export class GameGateway implements OnGatewayDisconnect {
   @WebSocketServer()
   server: Server;
 
+  @SubscribeMessage('get')
+  async get(@MessageBody() { code }: CheckGameDto) {
+    const game = await this.gameService.findOne({ code });
+    if (!game) {
+      throw new WsException({
+        errors: {
+          code: 'Game not found!'
+        }
+      });
+    }
+
+    return {
+      event: 'get-complete',
+      data: game
+    };
+  }
+
   @SubscribeMessage('check')
   async check(
     @MessageBody() { code }: CheckGameDto,
@@ -96,6 +113,7 @@ export class GameGateway implements OnGatewayDisconnect {
     });
 
     client.join(game.code);
+
     await this.roomService.set(client.id, {
       code: game.code,
       playerType: 'joiner'
@@ -173,6 +191,7 @@ export class GameGateway implements OnGatewayDisconnect {
     client.broadcast.to(code).emit('restart-made', {
       xIsNext: flip
     });
+
     return {
       event: 'restart-made',
       data: {

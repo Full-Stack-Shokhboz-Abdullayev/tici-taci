@@ -49,6 +49,7 @@ export const createCreateGameHook =
       Object.keys(events).forEach((event) => {
         socket.on(event, events[event]);
       });
+
       return () => {
         Object.keys(events).forEach((event) => {
           socket.off(event, events[event]);

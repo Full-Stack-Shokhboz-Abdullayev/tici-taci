@@ -18,12 +18,15 @@ export const createJoinGameHook =
     const socket = useSocket();
     const { check, code, title } = useGameStore();
 
-    const submit = useCallback(async ({ ...joiner }: JoinerDto) => {
-      socket.emit('join', {
-        joiner,
-        code
-      });
-    }, []);
+    const submit = useCallback(
+      async ({ ...joiner }: JoinerDto) => {
+        socket.emit('join', {
+          joiner,
+          code
+        });
+      },
+      [socket]
+    );
 
     const { resetForm, setErrors, setSubmitting, ...formikHelpers } = useFormik(
       {

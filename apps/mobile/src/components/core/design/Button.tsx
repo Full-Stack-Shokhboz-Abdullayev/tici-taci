@@ -21,12 +21,17 @@ const Button: FC<
   return (
     <TouchableOpacity
       activeOpacity={0.8}
-      style={tw`p-3 rounded text-center disabled:cursor-not-allowed ${
-        buttonType.button
-      } ${props.disabled ? 'opacity-50' : ''} ${className || ''} `}
+      style={[
+        tw`p-3 rounded text-center disabled:cursor-not-allowed ${
+          buttonType.button
+        } ${props.disabled ? 'opacity-50' : ''} ${className || ''} `,
+        {
+          justifyContent: 'center'
+        }
+      ]}
       {...props}
     >
-      <Text style={tw`${buttonType.text} text-center`}>{children}</Text>
+      <Text style={tw`${buttonType.text} text-center `}>{children}</Text>
     </TouchableOpacity>
   );
 });

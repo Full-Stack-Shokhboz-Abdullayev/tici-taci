@@ -41,8 +41,9 @@
       "defaultConfiguration": "development",
       "options": {
         "outputPath": "dist/apps/web",
+        "port": 4001,
         "baseHref": "/",
-        "configFile": "@nxext/vite/plugins/vite",
+        "configFile": "apps/web/vite.config.js",
         "frameworkConfigFile": "@nxext/react/plugins/vite"
       },
       "configurations": {

@@ -1,5 +1,5 @@
 export enum Perspective {
-  DIOGANAL = 'diagonal',
+  DIAGONAL = 'diagonal',
   VERTICAL = 'vertical',
-  HORIZONTAL = 'horizontal',
+  HORIZONTAL = 'horizontal'
 }

@@ -1,4 +1,4 @@
-import { PlaygroundProps } from '@tici-taci/typings';
+import { Perspective, PlaygroundProps } from '@tici-taci/typings';
 import { FC } from 'react';
 import { View } from 'react-native';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -9,6 +9,7 @@ import JoinGameForm from './JoinGame/JoinGameForm';
 import Fallback from './Playground/Fallback';
 import Message from './Playground/Message';
 import SquaresGrid from './Playground/SquaresGrid';
+import { Lines } from './core/design/Line';
 
 const Playground: FC<PlaygroundProps> = ({ className }) => {
   const navigate = useNavigate();
@@ -25,7 +26,11 @@ const Playground: FC<PlaygroundProps> = ({ className }) => {
     usePlayground(navigate, open, close, code);
 
   return (
-    <View style={tw`${className || ''} flex justify-center items-center w-4/5`}>
+    <View
+      style={tw`${
+        className || ''
+      } flex justify-center items-center w-4/5 relative`}
+    >
       <View
         pointerEvents={
           !players.remote ||
@@ -34,6 +39,7 @@ const Playground: FC<PlaygroundProps> = ({ className }) => {
             ? 'none'
             : 'auto'
         }
+        style={tw`relative w-full justify-center items-center flex`}
       >
         <SquaresGrid onClick={mark} squares={cells} />
         <Fallback
@@ -42,6 +48,8 @@ const Playground: FC<PlaygroundProps> = ({ className }) => {
           xIsNext={xIsNext}
           winner={winner}
         />
+
+        {line?.perspective ? <Lines line={line}></Lines> : null}
       </View>
 
       <Message

@@ -1,6 +1,7 @@
 import { FC } from 'react';
 import {
   KeyboardAvoidingView,
+  Modal,
   Platform,
   ScrollView,
   Text,
@@ -13,6 +14,7 @@ import { tw } from '../../plugins/tailwind';
 import Button from '../core/design/Button';
 import Input from '../core/design/Input';
 import SelectSwitch from '../core/design/SelectSwitch';
+import { useModalStore } from '../../store/modal.store';
 
 const signs = [
   {
@@ -26,6 +28,8 @@ const signs = [
 ];
 const CreateGameForm: FC = () => {
   const navigate = useNavigate();
+  const { isOpen } = useModalStore();
+
   const {
     handleSubmit,
     handleBlur,
@@ -36,15 +40,19 @@ const CreateGameForm: FC = () => {
     isSubmitting,
     setFieldValue
   } = useCreateGame(navigate);
+
+  if (!isOpen) return <></>;
+
   return (
-    <ScrollView style={tw`flex-grow-1`}>
-      <KeyboardAvoidingView
-        style={{ flex: 1 }}
-        keyboardVerticalOffset={100}
-        behavior={Platform.select({
-          ios: 'padding'
-        })}
-      >
+    // <Modal>
+    <KeyboardAvoidingView
+      // style={{ flex: 1, height: 'auto' }}
+      // keyboardVerticalOffset={-10000}
+      behavior={Platform.select({
+        ios: 'height'
+      })}
+    >
+      <View style={tw`h-auto`}>
         <Text style={tw`text-xl text-center my-2`}>Create The Game!</Text>
         <View style={tw`my-3`}>
           <Text style={tw`my-2 font-bold text-base`}>Your name please:</Text>
@@ -107,8 +115,9 @@ const CreateGameForm: FC = () => {
             Launch it 🚀
           </Button>
         </View>
-      </KeyboardAvoidingView>
-    </ScrollView>
+      </View>
+    </KeyboardAvoidingView>
+    // </Modal>
   );
 };
 

@@ -14,14 +14,13 @@ const Fallback: FC<{
     !canMove ? (
     <View
       style={[
-        tw`flex justify-center items-center absolute w-full h-full z-50 left-0 bg-opacity-90 bg-white`,
+        tw`flex flex-row justify-center absolute w-full h-full z-50 bg-opacity-90 bg-white items-center`,
         {
           elevation: 2
         }
       ]}
     >
       <Text>Loading...</Text>
-      {/* <Loading show={true} /> */}
     </View>
   ) : (
     <></>

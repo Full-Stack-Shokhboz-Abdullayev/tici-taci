@@ -34,7 +34,7 @@ const SelectSwitch: FC<SelectSwitchProps> = ({
     <View style={tw`${className || ''} flex flex-row justify-between`}>
       {options.map((option, index) => (
         <Button
-          className={`w-[45%] font-bold mx-1 flex justify-center ${
+          className={`w-[45%] font-bold mx-1 flex justify-center items-center ${
             option.value === value ? 'border-2 border-black bg-white' : ''
           }`}
           onPress={() => onChange(option.value)}

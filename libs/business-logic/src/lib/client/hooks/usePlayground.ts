@@ -9,6 +9,7 @@ import { defaultPlaygroundState } from '../constants/Playground';
 import { createSocket } from '../contexts/socket.provider';
 import { playgroundReducer } from '../reducers/playground.reducer';
 import { createGameStore } from '../store/game.store';
+import { Platform } from 'react-native';
 
 export const createPlaygroundHook =
   (
@@ -42,7 +43,13 @@ export const createPlaygroundHook =
       const socketEventHandlers: SocketEvents = {
         'opponent-left': (game: JoinGame) => {
           opponentLeft(game);
-          dispatch({ type: 'start' });
+
+          dispatch({
+            type: 'start',
+            payload: {
+              xIsNext: game.flip
+            }
+          });
         },
         'move-complete': ({ scores, ...state }: PlaygroundState) => {
           dispatch({ type: 'move', payload: { ...state, canMove: true } });
@@ -62,6 +69,15 @@ export const createPlaygroundHook =
           openModal();
           return;
         },
+        'get-complete': (game: JoinGame | { error: boolean }) => {
+          dispatch({
+            type: 'flip',
+            payload: {
+              xIsNext: (game as JoinGame).flip
+            }
+          });
+          return;
+        },
         exception: ({ errors }: FormError) => {
           alert(Object.values(errors).join('\n '));
           navigate('/');
@@ -69,14 +85,16 @@ export const createPlaygroundHook =
         },
         'player-joined': (game: JoinGame) => {
           join(game.joiner);
+
           dispatch({
-            type: 'flip',
+            type: 'start',
             payload: {
               xIsNext: game.flip
             }
           });
         }
       };
+
       Object.keys(socketEventHandlers).forEach((event) => {
         socket.on(event, socketEventHandlers[event]);
       });
@@ -85,7 +103,12 @@ export const createPlaygroundHook =
         console.log('Check');
 
         socket.emit('check', { code });
+      } else {
+        console.log('Get');
+
+        socket.emit('get', { code });
       }
+
       return () => {
         Object.keys(socketEventHandlers).forEach((event) => {
           socket.off(event, socketEventHandlers[event]);

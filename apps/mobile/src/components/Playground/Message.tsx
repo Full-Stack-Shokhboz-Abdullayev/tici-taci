@@ -2,7 +2,6 @@ import { Nullish, PlayersState, PlayerType } from '@tici-taci/typings';
 import { FC, memo, useMemo } from 'react';
 import { Text, View } from 'react-native';
 import { tw } from '../../plugins/tailwind';
-
 import Button from '../core/design/Button';
 
 interface MessageProps {
@@ -31,6 +30,9 @@ const Message: FC<MessageProps> = ({ winner, restart, players, xIsNext }) => {
         players as PlayersState,
         xIsNext ? 'X' : 'O'
       ) as PlayerType;
+
+      console.log(players.local, '-->', xIsNext ? 'X' : 'O');
+
       if (playerType) {
         return players[playerType]?.name;
       }

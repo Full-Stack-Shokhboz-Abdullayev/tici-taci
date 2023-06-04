@@ -19,6 +19,7 @@ const JoinGameForm: FC = () => {
     isSubmitting,
     title
   } = useJoinGame(navigate);
+
   return (
     <View>
       <Text style={tw`text-xl text-center`}>Join The Game - {title}!</Text>
@@ -26,8 +27,8 @@ const JoinGameForm: FC = () => {
         <Text style={tw`my-2 font-bold text-base`}>Your name please:</Text>
         <View style={tw`mx-2`}>
           <Input
-            onBlur={handleBlur('joiner.name')}
-            onChangeText={handleChange('joiner.name')}
+            onBlur={handleBlur('name')}
+            onChangeText={handleChange('name')}
             value={values.name}
             testID="joiner.name"
             styleType="black"

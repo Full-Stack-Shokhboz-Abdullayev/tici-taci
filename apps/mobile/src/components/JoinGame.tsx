@@ -18,6 +18,7 @@ const JoinGame: FC = () => {
     isSubmitting,
     handleSubmit
   } = useCheckGame(open);
+
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
