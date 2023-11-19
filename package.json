@@ -4,7 +4,7 @@
   "license": "MIT",
   "scripts": {
     "start": "nx serve",
-    "build": "sudo nx run-many --target=build --projects=server",
+    "build": "nx run-many --target=build --projects=server",
     "test": "nx test"
   },
   "private": true,
