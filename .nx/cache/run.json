@@ -1,0 +1,21 @@
+{
+  "run": {
+    "command": "nx run-many --target=build --all=true",
+    "startTime": "2023-11-19T11:49:25.358Z",
+    "endTime": "2023-11-19T11:49:25.521Z",
+    "inner": false
+  },
+  "tasks": [
+    {
+      "taskId": "typings:build",
+      "target": "build",
+      "projectName": "typings",
+      "hash": "16170338550058476024",
+      "startTime": "2023-11-19T11:49:25.364Z",
+      "endTime": "2023-11-19T11:49:25.519Z",
+      "params": "",
+      "cacheStatus": "cache-miss",
+      "status": 1
+    }
+  ]
+}
