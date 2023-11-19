@@ -5,7 +5,7 @@
   "main": "dist/apps/server/main.js",
   "scripts": {
     "start": "node dist/apps/server/main.js",
-    "build": "yarn add -D nx@14.3.6 && nx run-many --target=build --all=true",
+    "build": "yarn && nx run-many --target=build --all=true",
     "test": "nx test"
   },
   "private": true,
