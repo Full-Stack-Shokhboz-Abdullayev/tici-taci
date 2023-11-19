@@ -5,6 +5,7 @@
   "scripts": {
     "start": "nx serve",
     "build": "nx run-many --target=build --projects=server",
+    "postbuild": "cd server-build && yarn",
     "test": "nx test"
   },
   "private": true,

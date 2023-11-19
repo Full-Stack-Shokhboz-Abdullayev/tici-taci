@@ -10,7 +10,8 @@
         "outputPath": "server-build",
         "main": "apps/server/src/main.ts",
         "tsConfig": "apps/server/tsconfig.app.json",
-        "generatePackageJson": true
+        "generatePackageJson": true,
+        "buildLibsFromSource": true
       },
       "configurations": {
         "production": {
