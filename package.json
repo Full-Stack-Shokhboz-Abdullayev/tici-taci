@@ -4,7 +4,7 @@
   "license": "MIT",
   "main": "dist/apps/server/main.js",
   "scripts": {
-    "start": "node dist/apps/server/main.js",
+    "start": "nx serve",
     "build": "nx run-many --target=build --all=true",
     "test": "nx test"
   },

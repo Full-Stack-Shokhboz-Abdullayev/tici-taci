@@ -20,5 +20,5 @@
       "@tici-taci/validations": ["libs/validations/src/index.ts"]
     }
   },
-  "exclude": ["node_modules", "tmp"]
+  "exclude": ["node_modules"]
 }
