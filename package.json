@@ -2,10 +2,9 @@
   "name": "tici-taci",
   "version": "0.0.0",
   "license": "MIT",
-  "main": "dist/apps/server/main.js",
   "scripts": {
     "start": "node dist/apps/server/main.js",
-    "build": "yarn && nx run-many --target=build --all=true",
+    "build": "nx run-many --target=build --all=true",
     "test": "nx test"
   },
   "private": true,
@@ -32,6 +31,7 @@
     "expo-structured-headers": "~2.2.1",
     "expo-updates": "~0.13.2",
     "formik": "^2.2.9",
+    "global": "^4.4.0",
     "keyboard-aware-view": "^0.1.1",
     "lodash": "^4.17.21",
     "mongoose": "^6.2.7",
