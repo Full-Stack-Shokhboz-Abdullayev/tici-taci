@@ -2,10 +2,9 @@
   "name": "tici-taci",
   "version": "0.0.0",
   "license": "MIT",
-  "main": "dist/apps/server/main.js",
   "scripts": {
-    "start": "node dist/apps/server/main.js",
-    "build": "nx run-many --target=build --all=true",
+    "start": "nx serve",
+    "build": "sudo nx run-many --target=build --projects=server",
     "test": "nx test"
   },
   "private": true,
