@@ -14,7 +14,7 @@ const JoinGameForm: FC = () => {
     errors,
     touched,
     isSubmitting,
-    title
+    title,
   } = useJoinGame(navigate);
   return (
     <form
@@ -48,7 +48,7 @@ const JoinGameForm: FC = () => {
           styleType="yellow"
           className="block w-full border-black border-2"
         >
-          Enjoin (enjoy by joining)
+          Enjoin (enjoy by joining!)
           <span role="img" aria-label="rocket">
             🚀
           </span>
